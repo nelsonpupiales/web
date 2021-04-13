@@ -1,0 +1,148 @@
+<br>
+<mat-toolbar>
+  <mat-toolbar-row>    
+
+    <span class="titulo">{{materia.nombreMateria}}</span>
+    
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu2" aria-label="Example icon-button with a menu" class="botonmenu1">
+      <mat-icon>menu</mat-icon>
+    </button>        
+
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item data-toggle="modal" data-target="#exampleModalLongActualizar" (click)="regresarMateria()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">home</mat-icon>
+        <span>Inicio</span>
+      </button>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">
+          lock_open</mat-icon>
+        <span>Salir</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<mat-card class="presentacion">
+  <p>{{materia.descripcionMateria }}</p>
+  <p>Código de la clase: {{materia.codigoMateria}}</p>
+  <br>
+</mat-card>
+
+<mat-card>
+  <br>
+  <div class="botonesEstudiantes">
+    <button mat-raised-button (click)="listaEstudiante(codMateria)" class="boton" data-toggle="modal" data-target="#exampleModalPersona">
+      <span class="material-icons">supervisor_account</span>Estudiantes
+    </button>
+  </div>
+  <br>
+</mat-card>
+<br>
+
+<mat-card>
+  <div class="row">
+
+    <mat-card class="example-card Aopndd rZXyy">
+      <button mat-button type="submit" routerLink="/detalle/{{materia.id}}">
+        <div class="plus">
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+        </div>
+      </button>
+    </mat-card>
+
+    <tr *ngFor="let tema of temas" layout="row" layout-align="space-around center">
+      <mat-card class="example-card Aopndd rZXyy">
+        <mat-card-header class="Tc9hUd">
+          <mat-card-title>Tema</mat-card-title>
+          <hr>
+        </mat-card-header>
+        <!--<mat-card-subtitle>Codigo:</mat-card-subtitle>-->
+        <mat-card-content class="TQYOZc SZ0kZe1">
+          <br>
+          <br>
+          <p class="tituloTema">{{tema.nombreTema}}</p>
+          <!--<p>{{tema.introduccionTema}}</p>-->
+        </mat-card-content>
+        <hr>
+        <mat-card-actions class="SZ0kZe">
+          <button mat-button class="boton" routerLink="/panelTema/{{tema.id}}">Ingresar</button>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+            class="botonmenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="borrarTema(tema.id)">
+              <mat-icon>delete_forever</mat-icon>
+              <span>Eliminar</span>
+            </button>
+            <button mat-menu-item (click)="actualizarTema(tema.id)" data-toggle="modal"
+              data-target="#exampleModalLongActualizar">
+              <mat-icon>update</mat-icon>
+              <span>Modificar</span>
+            </button>
+          </mat-menu>
+        </mat-card-actions>
+      </mat-card>
+    </tr>
+  </div>
+</mat-card>
+
+
+
+<!-- Modal Listar Estudiantes -->
+<div  class="modal" id="exampleModalPersona" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" display="none" data-backdrop="static" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">Estudiantes</h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+
+        <mat-list dense  *ngFor="let estudiante of estudiantes">
+          <mat-list-item>
+            <span class="material-icons">
+              account_circle
+            </span>
+            {{estudiante?.nombreEstudiante}} {{estudiante?.apellidoEstudiante}} 
+          </mat-list-item>          
+        </mat-list>
+
+
+        <!--
+        <li *ngFor="let estudiante of estudiantes">          
+              <span class="material-icons">
+                account_circle
+              </span>
+              <p>
+                {{estudiante?.nombreEstudiante}} {{estudiante?.apellidoEstudiante}}
+              </p>
+        </li>-->
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="borrarModal()"       
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"          
+        >
+          Close
+        </button>       
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,324 @@
+<br />
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span><h1>LABORATORIO WEB</h1></span>
+    <span class="example-spacer"></span>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu1"
+      aria-label="Example icon-button with a menu"
+      class="botonmenu1"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #menu1="matMenu">
+      <button mat-menu-item (click)="perfilDocente(docente.id)" data-toggle="modal" data-target="#exampleModalPersona">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+          >person</mat-icon
+        >
+        <span>Perfil</span>
+      </button>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+        >
+          lock_open</mat-icon
+        >
+        <span>Salir</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card class="presentacion">
+  <p class="saludo">Hola {{ docente.nombreDocente }}</p>
+
+  <!--
+  <button mat-button type="submit" class="mat-raised-button mat-primary" data-toggle="modal"
+    data-target="#exampleModalLong" (click)="borrar()">
+    <span class="material-icons">add</span>Cargar Materia
+  </button>
+  -->
+</mat-card>
+<br />
+
+<mat-card>
+  <div class="row">
+    <mat-card class="example-card Aopndd rZXyy">
+      <button
+        mat-button
+        type="submit"
+        data-toggle="modal"
+        data-target="#exampleModalLong"
+        (click)="borrar()"
+      >
+        <div class="plus">
+          <span class="material-icons"> add_circle_outline </span>
+        </div>
+      </button>
+    </mat-card>
+
+    <tr
+      *ngFor="let materia of materias"
+      layout="row"
+      layout-align="space-around center"
+    >
+      <mat-card class="example-card Aopndd rZXyy">
+        <mat-card-header class="Tc9hUd">
+          <!--<mat-card-title>{{materia.nombreMateria}}</mat-card-title><hr>-->
+        </mat-card-header>
+        <mat-card-subtitle
+          >Codigo: {{ materia.codigoMateria }}</mat-card-subtitle
+        >
+        <mat-card-content class="TQYOZc SZ0kZe1">
+          <br />
+          <br />
+          <h1>{{ materia.nombreMateria }}</h1>
+        </mat-card-content>
+        <hr />
+        <mat-card-actions class="SZ0kZe">
+          <button
+            mat-button
+            class="boton"
+            routerLink="../tema/{{ materia.id }}"
+          >
+            Ingresar
+          </button>
+
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+            class="botonmenu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="borrarMateria(materia.id)">
+              <mat-icon>delete_forever</mat-icon>
+              <span>Eliminar</span>
+            </button>
+            <button
+              mat-menu-item
+              (click)="actualizarMateria(materia.id)"
+              data-toggle="modal"
+              data-target="#exampleModalLongActualizar"
+            >
+              <mat-icon>update</mat-icon>
+              <span>Modificar</span>
+            </button>
+          </mat-menu>
+        </mat-card-actions>
+      </mat-card>
+    </tr>
+  </div>
+</mat-card>
+
+<!-- Modal Insertar Materia-->
+<div
+  class="modal fade"
+  id="exampleModalLong"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">
+          Formulario Materia
+        </h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="registroFrom"
+          (ngSubmit)="onRegisterSubmit()"
+          novalidate
+        >
+          <div class="form-container">
+            <mat-form-field class="example-full-width">
+              <input
+                id="userDocente"
+                matInput
+                formControlName="nombreMateria"
+                [(ngModel)]="materia.nombreMateria"
+                placeholder="Nombre Materia"
+              /> </mat-form-field
+            ><br />
+
+            <mat-form-field class="example-full-width">
+              <input
+                id="userDocente"
+                matInput
+                formControlName="descripcionMateria"
+                [(ngModel)]="materia.descripcionMateria"
+                placeholder="Descripcion Materia"
+              /> </mat-form-field
+            ><br />
+
+            <mat-form-field class="example-full-width">
+              <input
+                id="codigoMateria"
+                matInput
+                formControlName="codigoMateria"
+                [(ngModel)]="materia.codigoMateria"
+                placeholder="Codigo Materia"
+              /> </mat-form-field
+            ><br />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              mat-button
+              type="submit"
+              class="mat-raised-button mat-primary"
+              [disabled]="registroFrom.invalid"
+            >
+              Ingresar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Actualizar -->
+<div
+  class="modal fade"
+  id="exampleModalLongActualizar"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">
+          Actualizar Materia
+        </h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="registroFrom"
+          (ngSubmit)="onRegisterSubmit()"
+          novalidate
+        >
+          <div class="form-container">
+            <mat-form-field class="example-full-width">
+              <input
+                id="userDocente"
+                matInput
+                formControlName="nombreMateria"
+                [(ngModel)]="materia.nombreMateria"
+                placeholder="Nombre Materia"
+              /> </mat-form-field
+            ><br />
+
+            <mat-form-field class="example-full-width">
+              <input
+                id="userDocente"
+                matInput
+                formControlName="descripcionMateria"
+                [(ngModel)]="materia.descripcionMateria"
+                placeholder="Descripcion Materia"
+              /> </mat-form-field
+            ><br />
+
+            <mat-form-field class="example-full-width">
+              <input
+                id="codigoMateria"
+                matInput
+                formControlName="codigoMateria"
+                [(ngModel)]="materia.codigoMateria"
+                placeholder="Codigo Materia"
+              /> </mat-form-field
+            ><br />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              mat-button
+              type="submit"
+              class="mat-raised-button mat-primary"
+              [disabled]="registroFrom.invalid"
+            >
+              Actualizar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Perfil Docente -->
+<div class="modal fade" id="exampleModalPersona" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">Perfil Docente</h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Nombres: {{docente.nombreDocente}} {{docente.apellidoDocente}}</p>
+        <p>Correo: {{docente.correoDocente}}</p>
+        <p>Usuario: {{docente.userDocente}}</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>       
+      </div>
+    </div>
+  </div>
+</div>

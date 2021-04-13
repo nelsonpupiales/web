@@ -1,0 +1,123 @@
+mat-toolbar{
+  background-color:#0d2c6c;
+  color: #fff;
+  /*border-top-left-radius : 0.6em;
+  border-top-right-radius : 0.6em;*/
+}
+
+
+.presentacion{
+  border-top-left-radius : 0em;
+  border-top-right-radius : 0em;
+  border-bottom-left-radius : 0em;
+  border-bottom-right-radius : 0em;
+  background-color:#0d2c6c;
+  color: #fff;
+  text-align: right;
+}
+
+.example-icon {
+    padding: 0 14px;
+  }
+ 
+  
+.example-spacer {
+    flex: 1 1 auto;
+}
+  .mat-elevation-z6 {
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.example-card {
+
+  background-color: #fff;
+  border: .0625rem solid #dadce0;
+  background-clip: padding-box;
+  
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem; 
+  
+
+  display: flex;
+  flex-direction: column;
+  height: 18.375rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  width: 18.75rem;  
+  }
+
+
+  .Aopndd:hover {
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    background-color: #fff;
+    border: .0625rem solid #dadce0;
+    overflow: hidden;
+}
+
+
+  .Tc9hUd {
+    position: relative;
+  }
+
+  .TQYOZc {
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    min-height: 0;
+    padding: 1rem;
+    padding-top: 2em;
+    padding-bottom: rem;
+  }
+
+  .SZ0kZe1 {
+    border-top: .0625rem solid #e0e0e0;
+    line-height: 0;
+    padding: 2em;
+  }
+
+  .SZ0kZe {
+    border-top: .0625rem solid #e0e0e0;
+    line-height: 0;
+    padding: 0.25rem;
+  }
+
+
+.cardHeader{
+  background-color: rgb(109, 129, 129);
+}
+
+
+.botonmenu1{
+  margin-left: 10.6em;
+  background-color: #eaab00;
+  border-radius: 0%; 
+}
+
+.botonmenu{
+  margin-left: 10.6em; 
+}
+
+
+.plus .material-icons{ 
+  text-align: left;
+  font-size: 18em;
+  color: #0d2c6c;
+}
+
+
+.boton{
+    background-color:#0d2c6c;
+    color: rgb(255, 255, 255);   
+    border-radius: 0.5em;
+    font-size: 1em;
+  }
+

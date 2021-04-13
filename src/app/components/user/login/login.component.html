@@ -1,0 +1,44 @@
+<br><br>
+<div class="row">
+        <div class="col-md-6">
+            <img class="bloque1" src="http://nelsonpupiales.com/img/LaboratoriodeFisica1.png">
+        </div>
+        <div class="col-md-6">
+            <div class="bloque2">
+                <mat-grid-list cols="2" rowHeight="100px">
+                    <mat-grid-tile [colspan]="2" [rowspan]="5">                        
+                        <mat-card>
+                            <mat-card-title class="cartitle">Ingreso al Sistema</mat-card-title>
+                            <form [formGroup]="registroFrom" (ngSubmit)="onRegisterSubmit()" novalidate>
+                                <div class="form-container">
+                                    <mat-form-field class="example-full-width">
+                                        <input id="userDocente" matInput formControlName="userDocente"
+                                            [(ngModel)]="docente.userDocente" placeholder="Usuario del docente" />
+                                    </mat-form-field><br>
+
+                                    <mat-form-field class="example-full-width">
+                                        <input id="passDocente" matInput formControlName="passDocente"
+                                            [(ngModel)]="docente.passDocente" placeholder="Enter your password"
+                                            [type]="hide ? 'password':'text'" />
+                                        <mat-icon matSuffix (click)="hide = !hide">
+                                            {{hide ? 'visibility' : 'visibility_off'}}
+                                        </mat-icon>
+                                    </mat-form-field><br>
+                                    <mat-card-actions>
+                                        <button mat-button type="submit" class="mat-raised-button" [disabled]="registroFrom.invalid">
+                                            Ingresar
+                                        </button>
+                                    </mat-card-actions>
+                                </div>
+                            </form>
+                            <mat-card-subtitle>
+                                <p class="subtitulo"> Si no tiene las credenciales puede acceder al <a
+                                        routerLink="../registro">Registro</a>
+                                </p>
+                            </mat-card-subtitle>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+    </div>

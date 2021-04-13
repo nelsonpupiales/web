@@ -1,0 +1,64 @@
+<br>
+<div layout="row" layout-align="space-around center" class="estilo">
+    <mat-grid-list cols="2" rowHeight="100px" class="estilo">
+        <mat-grid-tile [colspan]="2" [rowspan]="5">
+            <mat-card>
+                <mat-card-title>Registro</mat-card-title>
+                <mat-card-subtitle>Ingrese sus datos, complete los campos.</mat-card-subtitle>
+                <form [formGroup]="registroFrom" (ngSubmit)="onRegisterSubmit()" novalidate>
+                    <div class="form-container">
+                        <mat-form-field class="example-full-width">
+                            <input id="nombreDocente" 
+                                matInput 
+                                formControlName="nombreDocente"
+                                [(ngModel)]="docente.nombreDocente" 
+                                placeholder="Nombre del docente" />
+                        </mat-form-field><br>
+
+                        <mat-form-field class="example-full-width">
+                            <input id="apellidoDocente" 
+                                matInput 
+                                formControlName="apellidoDocente"
+                                [(ngModel)]="docente.apellidoDocente" 
+                                placeholder="Apellido del docente" />
+                        </mat-form-field><br>
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Email</mat-label>
+                            <input id="correoDocente" 
+                                matInput 
+                                formControlName="correoDocente"
+                                [(ngModel)]="docente.correoDocente" 
+                                placeholder="Ex. pat@example.com" />
+                        </mat-form-field><br>
+
+                        <mat-form-field class="example-full-width">
+                            <input id="userDocente" 
+                                matInput 
+                                formControlName="userDocente"
+                                [(ngModel)]="docente.userDocente" 
+                                placeholder="Usuario del docente" />
+                        </mat-form-field><br>
+
+                        <mat-form-field class="example-full-width">
+                            <input id="passDocente" 
+                                matInput formControlName="passDocente"
+                                [(ngModel)]="docente.passDocente" 
+                                placeholder="Enter your password"
+                                [type]="hide ? 'password':'text'" />
+                            <mat-icon matSuffix (click)="hide = !hide">
+                                {{hide ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </mat-form-field><br>
+
+                        <mat-card-actions>
+                            <button mat-button type="submit" class="mat-raised-button mat-primary" [disabled]="registroFrom.invalid">Registrar</button>
+                            <button mat-button routerLink="/user/login" class="divider" class="botonAmarillo">Login</button>
+                        </mat-card-actions>
+                    </div>
+                </form>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

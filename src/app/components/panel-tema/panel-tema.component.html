@@ -1,0 +1,364 @@
+<br />
+<mat-toolbar>
+  <mat-toolbar-row>
+
+    <span class="titulo">{{tema.nombreTema}}</span>
+
+    <span class="example-spacer"></span>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu2"
+      aria-label="Example icon-button with a menu"
+      class="botonmenu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item (click)="menu()">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+          >all_inbox</mat-icon
+        >
+        <span>Materias</span>
+      </button>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+        >
+        inbox</mat-icon
+        >
+        <span>Temas</span>
+      </button>
+    </mat-menu>
+    
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+  <mat-tab label="Introducción">
+    <p class="contenido" [innerHTML]="tema.introduccionTema"></p>
+  </mat-tab>
+
+  <mat-tab label="Instrucciones">
+    <p class="contenido" [innerHTML]="tema.instruccionesTema"></p>
+  </mat-tab>
+
+  <mat-tab label="Experimentos">
+    <br />
+    <div class="Experimento">
+      <button
+        class="botonExperimento"
+        mat-button
+        type="submit"
+        data-toggle="modal"
+        data-target="#exampleModalLong"
+      >
+        <span class="material-icons">add</span>Cargar Experimento
+      </button>
+    </div>
+    <br />
+    <mat-expansion-panel
+      hideToggle
+      *ngFor="let experimento of experimentos"
+      (click)="open(experimento)"
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ experimento.nombreExperimento }}
+        </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p class="contenido" [innerHTML]="experimento.preguntaExperimento"></p>
+
+      <div class="chart-wrapper">
+        <canvas
+          baseChart
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins"
+        >
+        </canvas>
+      </div>
+      <hr />
+
+      <button
+        mat-button
+        class="boton"
+        routerLink="/experimento/{{ experimento.id }}"
+      >
+        Ingresar
+      </button>
+
+      <!--
+        <button mat-button class="mat-raised-button mat-primary"
+      (click)="actualizarExperimento(experimento.id)" data-toggle="modal"
+      data-target="#exampleModalLongActualizar">Actualizar</button>
+      -->
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+        class="botonmenu1"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+
+      <!--Botones menu de eliminar y modificar-->
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="borrarExperimento(experimento.id)">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Eliminar</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="actualizarExperimento(experimento.id)"
+          data-toggle="modal"
+          data-target="#exampleModalLongActualizar"
+        >
+          <mat-icon>update</mat-icon>
+          <span>Modificar</span>
+        </button>
+      </mat-menu>
+    </mat-expansion-panel>
+    <br />
+    <br /> </mat-tab
+  ><br /><br />
+  <mat-tab label="Bibliografia">
+    <p class="contenido" [innerHTML]="tema.bibliografiaTema"></p>
+  </mat-tab>
+</mat-tab-group>
+
+<!--Ventana emergente para cargar preguntas-->
+<!-- Modal Insertar Experimento-->
+<div
+  class="modal fade"
+  id="exampleModalLong"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">
+          Agregar Experimento
+        </h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="registroFrom"
+          (ngSubmit)="onRegisterSubmit(registroFrom.value)"
+          novalidate
+        >
+          <div class="form-group">
+            <mat-form-field class="example-full-width">
+              <input
+                id="nombreExperimento"
+                matInput
+                formControlName="nombreExperimento"
+                placeholder="Nombre del Experimento"
+              /> </mat-form-field
+            ><br />
+            <div
+              *ngIf="
+                registroFrom.controls.nombreExperimento.errors &&
+                registroFrom.controls.nombreExperimento.touched
+              "
+              class="error"
+            >
+              Adjuntar nombre del Experimento.
+            </div>
+          </div>
+          <div class="form-group">
+            <angular-editor
+              [placeholder]="'Ingrese aqui el texto...'"
+              formControlName="preguntaExperimento"
+            >
+            </angular-editor>
+            <div
+              *ngIf="
+                registroFrom.controls.preguntaExperimento.errors &&
+                registroFrom.controls.preguntaExperimento.touched
+              "
+              class="error"
+            >
+              Descripcion requerida (Max 400 - Min 5).
+            </div>
+          </div>
+
+          <!--Carga de CSV-->
+          <p>Cargar CSV</p>
+          <div class="csv-file-chooser-section">
+            <input
+              type="file"
+              #fileImportInput
+              name="File Upload"
+              id="csvFileUpload"
+              (change)="fileChangeListener($event)"
+              accept=".csv"
+            />
+
+            <!--
+              <label>
+              Parse Headers?
+            </label>
+            <select aria-placeholder="Parse headers?" [(ngModel)]="header">
+              <option [value]="true">Yes</option>
+              <option [value]="false">No</option>
+            </select>
+            -->
+
+            <!-- {{csvRecords}} -->
+
+            <div class="chart-wrapper">
+              <canvas
+                baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+              >
+              </canvas>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              mat-button
+              class="boton1"
+              type="submit"
+              [disabled]="registroFrom.invalid"
+            >
+              Ingresar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Ventana emergente para cargar actualizar preguntas-->
+<div
+  class="modal fade"
+  id="exampleModalLongActualizar"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">
+          Actualizar Formulario Experimento
+        </h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="registroFrom"
+          (ngSubmit)="onRegisterSubmit(registroFrom.value)"
+          novalidate
+        >
+          <div class="form-group">
+            <mat-form-field class="example-full-width">
+              <input
+                id="nombreExperimento"
+                matInput
+                formControlName="nombreExperimento"
+                [(ngModel)]="experimento.nombreExperimento"
+                placeholder="Nombre del Experimento"
+              /> </mat-form-field
+            ><br />
+            <div
+              *ngIf="
+                registroFrom.controls.nombreExperimento.errors &&
+                registroFrom.controls.nombreExperimento.touched
+              "
+              class="error"
+            >
+              Adjuntar nombre del Experimento.
+            </div>
+          </div>
+          <div class="form-group">
+            <angular-editor
+              id="preguntaExperimento"
+              [placeholder]="'Ingrese aqui el texto...'"
+              formControlName="preguntaExperimento"
+              [(ngModel)]="experimento.preguntaExperimento"
+            >
+            </angular-editor>
+            <div
+              *ngIf="
+                registroFrom.controls.preguntaExperimento.errors &&
+                registroFrom.controls.preguntaExperimento.touched
+              "
+              class="error"
+            >
+              Descripción requerida (Max 400 - Min 5).
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              mat-button
+              type="submit"
+              class="mat-raised-button mat-primary"
+              [disabled]="registroFrom.invalid"
+            >
+              Actualiza
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br />

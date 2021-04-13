@@ -1,0 +1,67 @@
+<br>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="titulo">Materia: {{materia.nombreMateria}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="presentacion">
+    <p class="txtTema">Agrege la informacion para crear un nuevo tema</p>
+    <br>
+</div>
+
+<mat-card class="tarjeta">
+    <div class="container">
+        <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">           
+            <div class="form-group">
+                <mat-form-field class="example-full-width">
+                    <input id="nombreTema" matInput formControlName="nombreTema" placeholder="Titulo del Tema" />
+                </mat-form-field>
+                <div *ngIf="formdata.controls.nombreTema.errors && formdata.controls.nombreTema.touched" class="error">
+                    <p class="error">Adjuntar nombre del Tema.</p>
+                </div>
+            </div>            
+            
+    
+            <div class="form-group">
+                <label  class= "preguntas" for="email">Introducción:</label>
+                <angular-editor [placeholder]="'Ingrese aqui el texto...'" formControlName="introduccionTema">
+                </angular-editor>
+                <div *ngIf="formdata.controls.introduccionTema.errors && formdata.controls.introduccionTema.touched"
+                    class="error">
+                    Descripcion requerida (Max 2000 - Min 5).
+                </div>
+            </div>
+            <br>
+    
+            <div class="form-group">
+                <label class= "preguntas" for="email">Instrucciones:</label>
+                <angular-editor class="areaTexto" [placeholder]="'Ingrese aqui el texto...'" formControlName="instruccionesTema">
+                </angular-editor>
+                <div *ngIf="formdata.controls.instruccionesTema.errors && formdata.controls.instruccionesTema.touched"
+                    class="error">
+                    Descripcion requerida (Max 2000 - Min 5).
+                </div>
+            </div>
+            <br>
+    
+            <div class="form-group">
+                <label class= "preguntas" for="email">Bibliografia:</label>
+                <angular-editor [placeholder]="'Ingrese aqui el texto...'" formControlName="bibliografiaTema">
+                </angular-editor>
+                <div *ngIf="formdata.controls.bibliografiaTema.errors && formdata.controls.bibliografiaTema.touched"
+                    class="error">
+                    Descripcion requerida (Max 1000 - Min 5).
+                </div>
+            </div>
+    
+    
+            <!-- <button type="submit" class="btn btn-primary">Register</button> -->
+            <button  class="boton" mat-button type="submit" class="mat-raised-button mat-primary1"
+                [disabled]="formdata.invalid">Guardar</button>
+        </form>
+    </div>
+</mat-card>
+<br>
+
+
+
